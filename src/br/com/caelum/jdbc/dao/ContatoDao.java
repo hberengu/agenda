@@ -26,6 +26,10 @@ public class ContatoDao {
 		connection = new ConnectionFactory().getConnection();
 	}
 
+	public ContatoDao(Connection connection) {
+		this.connection = connection;
+	}
+	
 	public void adiciona(Contato contato) {
 		String sql = "insert into contatos (nome, email, endereco, dataNascimento) value (?, ?, ?, ?)";
 		try {
@@ -65,7 +69,7 @@ public class ContatoDao {
 		}
 	}
 	
-	public Contato getContatoId (int id) {
+	public Contato getContatoId (long id) {
 		try {
 			PreparedStatement stmt = connection.prepareStatement("select * from contatos where id=?");
 			stmt.setLong(1, id);
